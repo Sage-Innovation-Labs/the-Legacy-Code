@@ -1,11 +1,11 @@
-FROM node:18-alpine
+FROM oven/bun
 
-WORKDIR /project
+WORKDIR /usr/src/app
 
+COPY package*.json bun.lockb ./
+RUN bun install
 COPY . .
 
-RUN npm install
+EXPOSE 4321/tcp
 
-EXPOSE 4321
-
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD [ "bun", "start", "--", "--host",  "0.0.0.0" ]
